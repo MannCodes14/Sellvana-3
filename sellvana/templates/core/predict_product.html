@@ -1,0 +1,67 @@
+{% extends 'partials/base.html' %} 
+{% block content %} 
+{% load static %}
+
+<h1>Upload Product Image</h1>
+<form method="post" enctype="multipart/form-data" id="predict-form">
+    {% csrf_token %}
+    <input type="file" name="image" accept="image/*" required>
+    <button type="submit">Predict Product</button>
+</form>
+
+<div id="results">
+    <p>Predicted Class: <span id="predicted-class">Please upload an image to predict.</span></p>
+    <p>Tags: <span id="tags">Loading...</span></p>
+</div>
+
+<script>
+    document.getElementById('predict-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        fetch('/predict_product/', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                // Display predicted class and tags
+                document.getElementById('predicted-class').textContent = data.predicted_class;
+    
+                // Clean up the tags (remove numbering and underscores)
+                const cleanedTags = data.tags.map(tag => {
+                    // Remove numbering (e.g., "1. ", "2. ", etc.)
+                    tag = tag.replace(/^\d+\.\s*/, '');
+                    // Replace underscores with spaces
+                    tag = tag.replace(/_/g, ' ');
+                    return tag;
+                });
+    
+                // Display cleaned tags
+                document.getElementById('tags').textContent = cleanedTags.join(', ');
+    
+                // Insert the cleaned tags into the search bar
+                const searchInput = document.querySelector('input[name="q"]');  // Select the search input
+                if (searchInput) {
+                    searchInput.value = cleanedTags.join(' ');  // Insert tags as space-separated string
+    
+                    // Optionally, submit the search form
+                    const searchForm = searchInput.closest('form');
+                    if (searchForm) {
+                        searchForm.submit();  // Trigger the search
+                    }
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while processing the image.');
+        });
+    });
+</script>
+{% endblock %}
