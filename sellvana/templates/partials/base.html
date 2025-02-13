@@ -583,12 +583,12 @@
  
              <!-- Cart Icon -->
              <div class="header-action-icon-2">
-               <a class="mini-cart-icon" href="shop-cart.html">
+               <a class="mini-cart-icon" href="{% url 'core:cart' %}">
                  <img alt="Nest"
                       src="{% static 'assets/imgs/theme/icons/icon-cart.svg' %}" />
                  <span class="pro-count blue cart-items-count" style="background: #007BFF; color: white;">{{ request.session.cart_data_obj|length }}</span>
                </a>
-               <a href="shop-cart.html">
+               <a href="{% url 'core:cart' %}">
                  <span class="lable" style="color: #00bfff;">Cart</span>
                </a>
              </div>
@@ -1013,7 +1013,7 @@
                   </a>
                 </div>
                 <div class="header-action-icon-2">
-                  <a class="mini-cart-icon" href="shop-cart.html">
+                  <a class="mini-cart-icon" href="{% url 'core:cart' %}">
                     <img
                       alt="Nest"
                       src="{% static 'assets/imgs/theme/icons/icon-cart.svg' %}"
@@ -1021,55 +1021,12 @@
                     <span class="pro-count white cart-items-count">{{ request.session.cart_data_obj}}</span>
                   </a>
                   <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                    <ul>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Nest"
-                              src="{% static 'assets/imgs/shop/thumbnail-3.jpg' %}"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Plain Striola Shirts</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$800.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Nest"
-                              src="{% static 'assets/imgs/shop/thumbnail-4.jpg' %}"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Macbook Pro 2024</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$3500.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                    </ul>
+                   
                     <div class="shopping-cart-footer">
-                      <div class="shopping-cart-total">
-                        <h4>Total <span>$383.00</span></h4>
-                      </div>
+                      
                       <div class="shopping-cart-button">
-                        <a href="shop-cart.html">View cart</a>
-                        <a href="shop-checkout.html">Checkout</a>
+                        <a href="{% url 'core:cart' %}">View cart</a>
+                        <a href="">Checkout</a>
                       </div>
                     </div>
                   </div>
@@ -1176,7 +1133,7 @@
                     </li>
                     <li><a href="shop-filter.html">Shop – Filter</a></li>
                     <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
-                    <li><a href="shop-cart.html">Shop – Cart</a></li>
+                    <li><a href="{% url 'core:cart'%}">Shop – Cart</a></li>
                     <li><a href="shop-checkout.html">Shop – Checkout</a></li>
                     <li><a href="shop-compare.html">Shop – Compare</a></li>
                     <li class="menu-item-has-children">
