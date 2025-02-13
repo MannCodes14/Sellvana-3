@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from .models import Product, Category, ProductReview, Vendor
 from django.db.models import Count, Avg
@@ -303,3 +304,20 @@ def predict_product_view(request):
         })
 
     return render(request, 'core/predict_product.html')
+
+
+
+
+
+# cart list view
+def cart_view(request):
+    cart_total_amount = 0
+
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+        return render(request, "core/cart.html",{"cart_data" : request.session['cart_data_obj'], 'totalCartItems' : len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount})
+
+    else:
+        messages.warning(request, "Your cart is empty")
+        return redirect('core:index')

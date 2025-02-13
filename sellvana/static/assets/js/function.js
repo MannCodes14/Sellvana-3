@@ -165,33 +165,27 @@ $(document).ready(function () {
 // Add to cart functionality
 
 // Add to cart functionality
-$(".add-to-cart-btn").on("click", function(response) {
+$(".add-to-cart-btn").on("click", function() {
+    let this_val = $(this);
+    let index = this_val.attr("data-index");
 
-    let this_val = $(this)
-    let index = this_val.attr("data-index")
-
-    let quantity = $(".product-quantity-" + index).val()
-    let product_title = $(".product-title-" + index).val()
-
-    let product_id = $(".product-id-" + index).val()
-    let product_price = $(".current-product-price-" + index).text()
-
-    let product_pid = $(".product-pid-" + index).val()
-    let product_image = $(".product-image-" + index).val()
+    let quantity = $(".product-quantity-" + index).val();
+    let product_title = $(".product-title-" + index).val();
+    let product_id = $(".product-id-" + index).val();
+    let product_price = $(".current-product-price-" + index).text();
+    let product_pid = $(".product-pid-" + index).val();
+    let product_image = $(".product-image-" + index).val();
 
     console.log("Quantity:", quantity);
     console.log("Title:", product_title);
-
     console.log("Price:", product_price);
     console.log("ID:", product_id);
-
     console.log("PID:", product_pid);
     console.log("Image:", product_image);
-
     console.log("Index:", index);
-    console.log("Currrent Element:", this_val);
+    console.log("Current Element:", this_val);
 
-    // Ajax request will go here
+    // Ajax request
     $.ajax({
         url: '/add_to_cart',
         data: {
@@ -201,19 +195,20 @@ $(".add-to-cart-btn").on("click", function(response) {
             'qty': quantity,
             'title': product_title,
             'price': product_price,
-            'image': product_image // Assuming you want to send image info
+            'image': product_image
         },
         dataType: 'json',
-        success: function(data){
+        success: function(response) {
             this_val.html("✔");
             console.log("Added Product to Cart!");
+
+            // Update the cart count dynamically
             $(".cart-items-count").text(response.totalCartItems);
         },
-        error: function(error){
+        error: function(error) {
             console.log("Error: ", error);
         }
-    })
-
+    });
 });
 
 // $.ajax({
