@@ -45,6 +45,10 @@ INSTALLED_APPS = [
     'core',
     'userauth',
 
+    'paypal.standard',
+    # Payment gateway
+    'paypal.standard.ipn',
+
     # Third party apps
     'taggit',
     'ckeditor',
@@ -165,3 +169,10 @@ CKEDITOR_CONFIGS = { 'default': {
                                
       ]),
 }}
+
+
+
+PAYPAL_RECEIVER_EMAIL = 'sb-wveqx37645204@business.example.com'
+PAYPAL_TEST = True
+
+LOGIN_URL = 'userauth:sign-in'

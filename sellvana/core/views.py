@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
-from .models import Product, Category, ProductReview, Vendor
+from .models import Address, CartOrder, CartOrderItems, Product, Category, ProductReview, Vendor
 from django.db.models import Count, Avg
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
@@ -11,15 +11,51 @@ from django.db.models import Count
 from django.template.loader import render_to_string
 #import response
 from django.http import JsonResponse
+from django.urls import reverse
+from django.conf import settings
+
+from django.views.decorators.csrf import csrf_exempt
+from paypal.standard.forms import PayPalPaymentsForm
+
 
 # Create your views here.
+from django.db.models import Count, Avg
+from django.shortcuts import render
+from .models import Product, Category, Vendor, ProductReview, CartOrderItems
+
 def index(request):
-    # products = Product.objects.all().order_by('-date')
-    products = Product.objects.filter(product_status="published", featured=True)
-    print(products)
+    # Fetch published products
+    products = Product.objects.filter(product_status="published")
+
+    # Recently Added Products (Latest 4)
+    new_products = products.order_by('-date')[:4]
+
+    # Top Selling Products (Using CartOrderItems to count orders)
+    top_selling_products = Product.objects.filter(
+        id__in=CartOrderItems.objects.values_list('id', flat=True)
+    ).annotate(order_count=Count('id')).order_by('-order_count')[:4]
+
+    # Trending Products (Most reviewed)
+    trending_products = products.annotate(review_count=Count('reviews')).order_by('-review_count')[:4]
+
+    # Top Rated Products (Highest average rating)
+    top_rated_products = products.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')[:4]
+
+    # Fetch categories and vendors
+    categories = Category.objects.all()
+    vendors = Vendor.objects.all()
+    print('top_selling_products : ',top_selling_products)
+
     context = {
-        'products': products
+        'products': products,
+        'categories': categories,
+        'vendors': vendors,
+        'new_products': new_products,
+        'top_selling_products': top_selling_products,
+        'trending_products': trending_products,
+        'top_rated_products': top_rated_products,
     }
+
     return render(request, 'core/index.html', context)
 
 
@@ -381,9 +417,120 @@ def update_cart(request):
     })
 
 
+
+
+
+@login_required
 def checkout_view(request):
-    cart_total_amount = 0
-    if 'cart_data_obj' in request.session:
-        for p_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['qty']) * float(item['price'])
-        return render(request, "core/checkout.html",{"cart_data" : request.session['cart_data_obj'], 'totalCartItems' : len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount})
+    # Check if cart_data_obj exists in the session
+    if 'cart_data_obj' not in request.session or not request.session['cart_data_obj']:
+        messages.warning(request, "Your cart is empty. Please add items to your cart before proceeding to checkout.")
+        return redirect('core:cart')  # Redirect to the cart page or another appropriate page
+
+    host = request.get_host()
+    paypal_dict = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': "200",  # Assuming a default amount, should be calculated
+        'item_name': 'Fresh Pear',  # Should be dynamic
+        'invoice': 'INV-2',  # Should be unique and dynamic
+        'currency_code': 'USD',
+        'notify_url': f'http://{host}{reverse("core:paypal-ipn")}',
+        'return_url': f'http://{host}{reverse("core:payment-completed")}',
+        'cancel_return': f'http://{host}{reverse("core:payment-failed")}',
+    }
+
+    # Form to render the Paypal button
+    payment_button_form = PayPalPaymentsForm(initial=paypal_dict)
+
+    print("Host is ", request.get_host())
+
+    cart_total_amount = 0  # Initialize to 0
+    for oid, item in request.session['cart_data_obj'].items():
+        cart_total_amount += int(item['qty']) * float(item['price'])
+
+    return render(request, 'core/checkout.html', {
+        'cart_data': request.session['cart_data_obj'],
+        'totalcartitems': len(request.session['cart_data_obj']),
+        'cart_total_amount': cart_total_amount,
+        'payment_button_form': payment_button_form
+    })
+
+
+@login_required
+def payment_failed_view(request):
+    return render(request, 'core/payment-failed.html')    
+
+
+
+@login_required
+def payment_completed_view(request):
+    cart_total_amount = 0  # Initialize to 0!
+    for product_id, item in request.session['cart_data_obj'].items():
+        cart_total_amount += int(item['qty']) * float(item['price'])  # Corrected calculation
+
+    order = CartOrder.objects.create(
+        user=request.user,
+        price=cart_total_amount,
+        paid_status=True
+    )
+    for product_id, item in request.session['cart_data_obj'].items():
+        CartOrderItems.objects.create(
+        order=order,
+        invoice_no='INVOICE_NO-' + str(order.id),  # Example: INVOICE_NO-5
+        item=item['title'], 
+        image=item['image'], 
+        qty=item['qty'], 
+        price=item['price'], 
+        total=float(item['qty']) * float(item['price'])  # Corrected the total calculation
+    )
+
+    context = request.POST  # Assuming you need this data
+    return render(request, 'core/payment-completed.html', {
+        'cart_data': request.session['cart_data_obj'],
+        'totalcartitems': len(request.session['cart_data_obj']),
+        'cart_total_amount': cart_total_amount  # Pass the calculated total
+    })
+
+
+@login_required
+def dashboard_view(request):
+    orders = CartOrder.objects.filter(user=request.user)
+    address = Address.objects.filter(user=request.user)
+
+    if request.method == "POST":
+        address = request.POST.get("address")
+        phone = request.POST.get("phone")
+
+        new_address = Address.objects.create(
+            user=request.user,
+            address=address,
+            phone=phone
+        )
+
+        messages.success(request, "Address Saved")
+        return redirect("core:dashboard")
+
+    context = {
+        'orders': orders,
+        'address': address,
+    }
+    return render(request, 'core/dashboard.html', context)
+
+# Order Detail View
+def order_detail_view(request, id):
+    order = CartOrder.objects.get(user=request.user, id=id)
+    order_items = CartOrderItems.objects.filter(order=order)
+
+    context = {
+        "order_items": order_items,
+    }
+    return render(request, 'core/order-detail.html', context)
+
+
+def make_address_default(request):
+    id = request.GET['id']
+
+    Address.objects.update(status=False)
+    Address.objects.filter(id=id).update(status=True)
+
+    return JsonResponse({"boolean": True})  # Corrected dictionary syntax

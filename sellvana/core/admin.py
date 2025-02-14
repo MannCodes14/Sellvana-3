@@ -17,7 +17,7 @@ class VendorAdmin(admin.ModelAdmin):
     list_display = ['user', 'vendor_image', 'date', 'id']
 
 class CategoryOrderAdmin(admin.ModelAdmin):
-    list_display = ['user', 'price', 'order_date', 'product_status', 'paid_statuus']
+    list_display = ['user', 'price', 'order_date', 'product_status', 'paid_status']
 
 class CartOrderItemsAdmin(admin.ModelAdmin):
     list_display = ['order', 'invoice_no', 'item', 'qty', 'price', 'total', 'image']
@@ -29,6 +29,7 @@ class WhishlistAdmin(admin.ModelAdmin):
     list_display = ['user', 'product', 'date']
 
 class AddressAdmin(admin.ModelAdmin):
+    list_editable = ['status', 'address']
     list_display = ['user', 'address', 'status']
 
 admin.site.register(Category, CategoryAdmin)

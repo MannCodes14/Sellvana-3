@@ -177,6 +177,7 @@ function attachAddToCartListeners() {
     });
 }
 
+
 // Initialize all event listeners
 $(document).ready(function () {
     $(".loader").hide();
@@ -185,4 +186,36 @@ $(document).ready(function () {
     attachFilterListeners();
     attachPriceValidation();
     attachAddToCartListeners();
+
+    $(document).on("click", ".make-default-address", function(){
+
+        let id = $(this).attr("data-address-id");
+        let this_val = $(this);
+    
+        console.log("ID is:", id);
+        console.log("Element is:", this_val);
+    
+        $.ajax({
+            url: "/make-default-address",
+            data: {
+                'id': id  // Corrected: Added 'id' as the key and the id variable as the value
+            },
+            dataType: "json",
+            success: function(response){
+                console.log("Address Made Default....");
+
+                if (response.boolean == true) { // or if (response.boolean) is sufficient
+                    $(".check").hide();
+                    $(".action_btn").show();
+
+                    $(".check" + id).show(); // Correct way to concatenate in jQuery selector
+                    $(".button" + id).hide(); // Correct way to concatenate in jQuery selector
+                }
+            }
+        });
+    });
 });
+
+
+
+

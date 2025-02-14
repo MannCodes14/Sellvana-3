@@ -591,22 +591,33 @@
                <a href="{% url 'core:cart' %}">
                  <span class="lable" style="color: #00bfff;">Cart</span>
                </a>
+               <div class="cart-dropdown-wrap cart-dropdown-hm2">
+               
+                <div class="shopping-cart-footer">
+                  
+                  <div class="shopping-cart-button">
+                    <a href="{% url 'core:cart' %}">View cart</a>
+                    <a href="{% url 'core:checkout' %}">Checkout</a>
+                  </div>
+                </div>
+              </div>
              </div>
- 
+
+             
              <!-- Account Section -->
              <div class="header-action-icon-2">
-               <a href="page-account.html">
+               <a href="{% url 'core:dashboard' %}">
                  <img class="svgInject" alt="Nest"
                       src="{% static 'assets/imgs/theme/icons/icon-user.svg' %}" />
                </a>
-               <a href="page-account.html">
+               <a href="{% url 'core:dashboard' %}">
                  <span class="lable ml-0" style="color: #00bfff;">Account</span>
                </a>
                <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown"
                     style="background: #1c2e4a; border: 1px solid #00bfff; padding: 10px;">
                  <ul>
                    <li>
-                     <a href="page-account.html">
+                     <a href="{% url 'core:dashboard' %}">
                        <i class="fi fi-rs-user mr-10" style="color: #00bfff;"></i> My Account
                      </a> 
                    </li>
@@ -1012,8 +1023,9 @@
                     <span class="pro-count white">4</span>
                   </a>
                 </div>
+                
                 <div class="header-action-icon-2">
-                  <a class="mini-cart-icon" href="{% url 'core:cart' %}">
+                  <a class="mini-cart-icon"  href="{% url 'core:cart' %}">
                     <img
                       alt="Nest"
                       src="{% static 'assets/imgs/theme/icons/icon-cart.svg' %}"
@@ -1026,7 +1038,7 @@
                       
                       <div class="shopping-cart-button">
                         <a href="{% url 'core:cart' %}">View cart</a>
-                        <a href="">Checkout</a>
+                        <a href="{% url 'core:checkout' %}">Checkout</a>
                       </div>
                     </div>
                   </div>
