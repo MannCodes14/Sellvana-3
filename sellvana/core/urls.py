@@ -62,6 +62,7 @@ urlpatterns = [
     # make default address
     path("make-default-address", make_address_default, name="make-default-address"),
 
+
     # predict product
     path('predict_product/', predict_product_view, name='predict_product'),
 

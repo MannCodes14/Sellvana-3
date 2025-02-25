@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
     # Custom apps
     'core',
     'userauth',
+    'django.contrib.humanize',
 
     'paypal.standard',
     # Payment gateway

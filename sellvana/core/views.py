@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
+
+from userauth.models import Profile
 from .models import Address, CartOrder, CartOrderItems, Product, Category, ProductReview, Vendor
 from django.db.models import Count, Avg
 from taggit.models import Tag
@@ -70,8 +72,13 @@ def product_list_view(request):
 def category_list_view(request):
     # categories = Category.objects.all()
     categories = Category.objects.all()
+    products = Product.objects.filter(product_status="published")
+
+    trending_products = products.annotate(review_count=Count('reviews')).order_by('-review_count')[:4]
+    print('trending_products : ',trending_products)
     context = {
-        'categories': categories
+        'categories': categories,
+        'trending_products': trending_products
     }
     return render(request, 'core/category_list.html', context)
 
@@ -343,21 +350,33 @@ def predict_product_view(request):
 
 
 
-
-
-# cart list view
+# cart view
 def cart_view(request):
     cart_total_amount = 0
 
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['qty']) * float(item['price'])
-        return render(request, "core/cart.html",{"cart_data" : request.session['cart_data_obj'], 'totalCartItems' : len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount})
+            # Validate price before conversion
+            price = item.get('price', '0')  # Default to '0' if price is missing or empty
+            if price.strip():  # Check if price is not an empty string
+                try:
+                    cart_total_amount += int(item['qty']) * float(price)
+                except ValueError:
+                    # Handle invalid price (e.g., log the error or skip the item)
+                    print(f"Invalid price for product {p_id}: {price}")
+            else:
+                # Handle empty price (e.g., log the error or skip the item)
+                print(f"Empty price for product {p_id}")
+
+        return render(request, "core/cart.html", {
+            "cart_data": request.session['cart_data_obj'],
+            'totalCartItems': len(request.session['cart_data_obj']),
+            'cart_total_amount': cart_total_amount
+        })
 
     else:
         messages.warning(request, "Your cart is empty")
         return redirect('core:index')
-    
 
 
 def delete_item_from_cart(request):
@@ -492,11 +511,20 @@ def payment_completed_view(request):
     })
 
 
+
+
 @login_required
 def dashboard_view(request):
     orders = CartOrder.objects.filter(user=request.user)
     address = Address.objects.filter(user=request.user)
 
+    # Fetch the user's profile or create one if it doesn't exist
+    try:
+        user_profile = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        user_profile = Profile.objects.create(user=request.user)
+
+    # Handle POST request to save a new address
     if request.method == "POST":
         address = request.POST.get("address")
         phone = request.POST.get("phone")
@@ -510,10 +538,13 @@ def dashboard_view(request):
         messages.success(request, "Address Saved")
         return redirect("core:dashboard")
 
+    # Prepare context for the template
     context = {
+        'user_profile': user_profile,
         'orders': orders,
         'address': address,
     }
+
     return render(request, 'core/dashboard.html', context)
 
 # Order Detail View
@@ -534,3 +565,4 @@ def make_address_default(request):
     Address.objects.filter(id=id).update(status=True)
 
     return JsonResponse({"boolean": True})  # Corrected dictionary syntax
+

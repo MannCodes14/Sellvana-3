@@ -19,32 +19,24 @@
                     Don’t miss amazing<br />
                     grocery deals
                   </h1>
-                  {% if not request.user.is_authenticated %}
+                  {% comment %} {% if not request.user.is_authenticated %}
                   <p class="mb-65">Sign up for the daily newsletter</p>
                   <form class="form-subcriber d-flex">
                     <input type="email" placeholder="Your emaill address" />
                     <button class="btn" type="submit">Subscribe</button>
                   </form>
-                  {% endif %}
+                  {% endif %} {% endcomment %}
                 </div>
               </div>
               <div
                 class="single-hero-slider single-animation-wrap"
                 style="
-                  background-image: url({%static "assets/imgs/slider/slider-2.png" %});
+                  background-image: url({%static "assets/imgs/banner/sellvana.png" %});
                 "
               >
                 <div class="slider-content">
-                  <h1 class="display-2 mb-40">
-                    Fresh Vegetables<br />
-                    Big discount
-                  </h1>
-                  {% if not request.user.is_authenticated %}
-                  <form class="form-subcriber d-flex">
-                    <input type="email" placeholder="Your emaill address" />
-                    <button class="btn" type="submit">Subscribe</button>
-                  </form>
-                  {% endif %}
+                  
+                  
                 </div>
               </div>
             </div>
@@ -55,106 +47,7 @@
         <section class="product-tabs section-padding position-relative">
           <div class="section-title style-2">
             <h3>Popular Products</h3>
-            <ul class="nav nav-tabs links" id="myTab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link active"
-                  id="nav-tab-one"
-                  data-bs-toggle="tab"
-                  data-bs-target="#tab-one"
-                  type="button"
-                  role="tab"
-                  aria-controls="tab-one"
-                  aria-selected="true"
-                >
-                  All
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link"
-                  id="nav-tab-two"
-                  data-bs-toggle="tab"
-                  data-bs-target="#tab-two"
-                  type="button"
-                  role="tab"
-                  aria-controls="tab-two"
-                  aria-selected="false"
-                >
-                  Milks & Dairies
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link"
-                  id="nav-tab-three"
-                  data-bs-toggle="tab"
-                  data-bs-target="#tab-three"
-                  type="button"
-                  role="tab"
-                  aria-controls="tab-three"
-                  aria-selected="false"
-                >
-                  Coffes & Teas
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link"
-                  id="nav-tab-four"
-                  data-bs-toggle="tab"
-                  data-bs-target="#tab-four"
-                  type="button"
-                  role="tab"
-                  aria-controls="tab-four"
-                  aria-selected="false"
-                >
-                  Pet Foods
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link"
-                  id="nav-tab-five"
-                  data-bs-toggle="tab"
-                  data-bs-target="#tab-five"
-                  type="button"
-                  role="tab"
-                  aria-controls="tab-five"
-                  aria-selected="false"
-                >
-                  Meats
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link"
-                  id="nav-tab-six"
-                  data-bs-toggle="tab"
-                  data-bs-target="#tab-six"
-                  type="button"
-                  role="tab"
-                  aria-controls="tab-six"
-                  aria-selected="false"
-                >
-                  Vegetables
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link"
-                  id="nav-tab-seven"
-                  data-bs-toggle="tab"
-                  data-bs-target="#tab-seven"
-                  type="button"
-                  role="tab"
-                  aria-controls="tab-seven"
-                  aria-selected="false"
-                >
-                  Fruits
-                </button>
-              </li>
-            </ul>
+            
           </div>
           <!--End nav-tabs-->
           <div class="tab-content" id="myTabContent">
@@ -4972,276 +4865,8 @@
           </div>
           <!--End tab-content-->
         </section>
-        <!--Products Tabs-->
-        <section class="section-padding pb-5">
-          <div class="section-title">
-            <h3 class="">Deals Of The Day</h3>
-            <a class="show-all" href="shop-grid-right.html">
-              All Deals
-              <i class="fi-rs-angle-right"></i>
-            </a>
-          </div>
-          <div class="row">
-            <div class="col-xl-3 col-lg-4 col-md-6">
-              <div class="product-cart-wrap style-2">
-                <div class="product-img-action-wrap">
-                  <div class="product-img">
-                    <a href="shop-product-right.html">
-                      <img
-                        src="{% static 'assets/imgs/banner/banner-5.png' %}"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div class="product-content-wrap">
-                  <div class="deals-countdown-wrap">
-                    <div
-                      class="deals-countdown"
-                      data-countdown="2025/03/25 00:00:00"
-                    ></div>
-                  </div>
-                  <div class="deals-content">
-                    <h2>
-                      <a href="shop-product-right.html"
-                        >Seeds of Change Organic Quinoa, Brown</a
-                      >
-                    </h2>
-                    <div class="product-rate-cover">
-                      <div class="product-rate d-inline-block">
-                        <div class="product-rating" style="width: 90%"></div>
-                      </div>
-                      <span class="font-small ml-5 text-muted"> (4.0)</span>
-                    </div>
-                    <div>
-                      <span class="font-small text-muted"
-                        >By <a href="vendor-details-1.html">NestFood</a></span
-                      >
-                    </div>
-                    <div class="product-card-bottom">
-                      <div class="product-price">
-                        <span>$32.85</span>
-                        <span class="old-price">$33.8</span>
-                      </div>
-                      <div class="add-cart">
-                        <a class="add" href="shop-cart.html"
-                          ><i class="fi-rs-shopping-cart mr-5"></i>Add
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-              <div class="product-cart-wrap style-2">
-                <div class="product-img-action-wrap">
-                  <div class="product-img">
-                    <a href="shop-product-right.html">
-                      <img
-                        src="{% static 'assets/imgs/banner/banner-6.png' %}"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div class="product-content-wrap">
-                  <div class="deals-countdown-wrap">
-                    <div
-                      class="deals-countdown"
-                      data-countdown="2026/04/25 00:00:00"
-                    ></div>
-                  </div>
-                  <div class="deals-content">
-                    <h2>
-                      <a href="shop-product-right.html"
-                        >Perdue Simply Smart Organics Gluten</a
-                      >
-                    </h2>
-                    <div class="product-rate-cover">
-                      <div class="product-rate d-inline-block">
-                        <div class="product-rating" style="width: 90%"></div>
-                      </div>
-                      <span class="font-small ml-5 text-muted"> (4.0)</span>
-                    </div>
-                    <div>
-                      <span class="font-small text-muted"
-                        >By
-                        <a href="vendor-details-1.html">Old El Paso</a></span
-                      >
-                    </div>
-                    <div class="product-card-bottom">
-                      <div class="product-price">
-                        <span>$24.85</span>
-                        <span class="old-price">$26.8</span>
-                      </div>
-                      <div class="add-cart">
-                        <a class="add" href="shop-cart.html"
-                          ><i class="fi-rs-shopping-cart mr-5"></i>Add
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-none d-lg-block">
-              <div class="product-cart-wrap style-2">
-                <div class="product-img-action-wrap">
-                  <div class="product-img">
-                    <a href="shop-product-right.html">
-                      <img
-                        src="{% static 'assets/imgs/banner/banner-7.png' %}"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div class="product-content-wrap">
-                  <div class="deals-countdown-wrap">
-                    <div
-                      class="deals-countdown"
-                      data-countdown="2027/03/25 00:00:00"
-                    ></div>
-                  </div>
-                  <div class="deals-content">
-                    <h2>
-                      <a href="shop-product-right.html"
-                        >Signature Wood-Fired Mushroom</a
-                      >
-                    </h2>
-                    <div class="product-rate-cover">
-                      <div class="product-rate d-inline-block">
-                        <div class="product-rating" style="width: 80%"></div>
-                      </div>
-                      <span class="font-small ml-5 text-muted"> (3.0)</span>
-                    </div>
-                    <div>
-                      <span class="font-small text-muted"
-                        >By <a href="vendor-details-1.html">Progresso</a></span
-                      >
-                    </div>
-                    <div class="product-card-bottom">
-                      <div class="product-price">
-                        <span>$12.85</span>
-                        <span class="old-price">$13.8</span>
-                      </div>
-                      <div class="add-cart">
-                        <a class="add" href="shop-cart.html"
-                          ><i class="fi-rs-shopping-cart mr-5"></i>Add
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 d-none d-xl-block">
-              <div class="product-cart-wrap style-2">
-                <div class="product-img-action-wrap">
-                  <div class="product-img">
-                    <a href="shop-product-right.html">
-                      <img
-                        src="{% static 'assets/imgs/banner/banner-8.png' %}"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div class="product-content-wrap">
-                  <div class="deals-countdown-wrap">
-                    <div
-                      class="deals-countdown"
-                      data-countdown="2025/02/25 00:00:00"
-                    ></div>
-                  </div>
-                  <div class="deals-content">
-                    <h2>
-                      <a href="shop-product-right.html"
-                        >Simply Lemonade with Raspberry Juice</a
-                      >
-                    </h2>
-                    <div class="product-rate-cover">
-                      <div class="product-rate d-inline-block">
-                        <div class="product-rating" style="width: 80%"></div>
-                      </div>
-                      <span class="font-small ml-5 text-muted"> (3.0)</span>
-                    </div>
-                    <div>
-                      <span class="font-small text-muted"
-                        >By <a href="vendor-details-1.html">Yoplait</a></span
-                      >
-                    </div>
-                    <div class="product-card-bottom">
-                      <div class="product-price">
-                        <span>$15.85</span>
-                        <span class="old-price">$16.8</span>
-                      </div>
-                      <div class="add-cart">
-                        <a class="add" href="shop-cart.html"
-                          ><i class="fi-rs-shopping-cart mr-5"></i>Add
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!--End Deals-->
-        <section class="banners">
-          <div class="row">
-            <div class="col-lg-4 col-md-6">
-              <div class="banner-img">
-                <img
-                  src="{% static 'assets/imgs/banner/banner-1.png' %}"
-                  alt=""
-                />
-                <div class="banner-text">
-                  <h4>
-                    Everyday Fresh & <br />Clean with Our<br />
-                    Products
-                  </h4>
-                  <a href="shop-grid-right.html" class="btn btn-xs"
-                    >Shop Now <i class="fi-rs-arrow-small-right"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-              <div class="banner-img">
-                <img
-                  src="{% static 'assets/imgs/banner/banner-2.png' %}"
-                  alt=""
-                />
-                <div class="banner-text">
-                  <h4>
-                    Make your Breakfast<br />
-                    Healthy and Easy
-                  </h4>
-                  <a href="shop-grid-right.html" class="btn btn-xs"
-                    >Shop Now <i class="fi-rs-arrow-small-right"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 d-md-none d-lg-flex">
-              <div class="banner-img mb-sm-0">
-                <img
-                  src="{% static 'assets/imgs/banner/banner-3.png' %}"
-                  alt=""
-                />
-                <div class="banner-text">
-                  <h4>The best Organic <br />Products Online</h4>
-                  <a href="shop-grid-right.html" class="btn btn-xs"
-                    >Shop Now <i class="fi-rs-arrow-small-right"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        
+        
         <!--End banners-->
       </div>
       <div class="col-lg-1-5 primary-sidebar sticky-sidebar pt-30">
@@ -5255,7 +4880,7 @@
                   src="{{ c.image.url }}"
                   alt=""
                 />{{c.title}}</a
-              ><span class="count">30</span>
+              >
             </li>
             {% endfor %}
             
@@ -5274,7 +4899,7 @@
                   src="{{ v.image.url }}"
                   alt=""
                 />{{v.title}}</a
-              ><span class="count">30</span>
+              >
             </li>
             {% endfor %}
             
@@ -5327,7 +4952,7 @@
           {% for c in categories %}
           <div class="card-1">
             <figure class="img-hover-scale overflow-hidden">
-              <a href="shop-grid-right.html"
+              <a href="{% url 'core:category-product-list' c.cid %}"
                 ><img
                   src="{{c.image.url}}"
                   alt=""
@@ -5352,30 +4977,25 @@
           </h4>
           
           <div class="product-list-small animated animated">
-            {% for tp in top_selling_products %}
+            {% for ts in top_selling_products %}
             <article class="row align-items-center hover-up">
               <figure class="col-md-4 mb-0">
-                <a href="shop-product-right.html"
+                <a href="{% url 'core:product-detail' ts.pid %}"
                   ><img
-                    src="{% static 'assets/imgs/shop/thumbnail-1.jpg' %}"
+                    src="{{ts.image.url}}"
                     alt=""
                 /></a>
               </figure>
               <div class="col-md-8 mb-0">
                 <h6>
-                  <a href="shop-product-right.html"
-                    >Nestle Original Coffee-Mate Coffee Creamer</a
+                  <a href="{% url 'core:product-detail' ts.pid %}"
+                    >{{ts.title}}</a
                   >
                 </h6>
-                <div class="product-rate-cover">
-                  <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
-                  <span class="font-small ml-5 text-muted"> (4.0)</span>
-                </div>
+                
                 <div class="product-price">
-                  <span>$32.85</span>
-                  <span class="old-price">$33.8</span>
+                  <span>${{ts.price}}</span>
+                  <span class="old-price">${{ts.old_price}}</span>
                 </div>
               </div>
             </article>
@@ -5387,84 +5007,29 @@
             Trending Products
           </h4>
           <div class="product-list-small animated animated">
+            {% for tp in trending_products %}
             <article class="row align-items-center hover-up">
               <figure class="col-md-4 mb-0">
-                <a href="shop-product-right.html"
+                <a href="{% url 'core:product-detail' tp.pid %}"
                   ><img
-                    src="{% static 'assets/imgs/shop/thumbnail-4.jpg' %}"
+                    src="{{tp.image.url}}"
                     alt=""
                 /></a>
               </figure>
               <div class="col-md-8 mb-0">
                 <h6>
-                  <a href="shop-product-right.html"
-                    >Organic Cage-Free Grade A Large Brown Eggs</a
+                  <a href="{% url 'core:product-detail' tp.pid %}"
+                    >{{tp.title}}</a
                   >
                 </h6>
-                <div class="product-rate-cover">
-                  <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
-                  <span class="font-small ml-5 text-muted"> (4.0)</span>
-                </div>
+                
                 <div class="product-price">
-                  <span>$32.85</span>
-                  <span class="old-price">$33.8</span>
+                  <span>${{tp.price}}</span>
+                  <span class="old-price">${{tp.old_price}}</span>
                 </div>
               </div>
             </article>
-            <article class="row align-items-center hover-up">
-              <figure class="col-md-4 mb-0">
-                <a href="shop-product-right.html"
-                  ><img
-                    src="{% static 'assets/imgs/shop/thumbnail-5.jpg' %}"
-                    alt=""
-                /></a>
-              </figure>
-              <div class="col-md-8 mb-0">
-                <h6>
-                  <a href="shop-product-right.html"
-                    >Seeds of Change Organic Quinoa, Brown, & Red Rice</a
-                  >
-                </h6>
-                <div class="product-rate-cover">
-                  <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
-                  <span class="font-small ml-5 text-muted"> (4.0)</span>
-                </div>
-                <div class="product-price">
-                  <span>$32.85</span>
-                  <span class="old-price">$33.8</span>
-                </div>
-              </div>
-            </article>
-            <article class="row align-items-center hover-up">
-              <figure class="col-md-4 mb-0">
-                <a href="shop-product-right.html"
-                  ><img
-                    src="{% static 'assets/imgs/shop/thumbnail-6.jpg' %}"
-                    alt=""
-                /></a>
-              </figure>
-              <div class="col-md-8 mb-0">
-                <h6>
-                  <a href="shop-product-right.html"
-                    >Naturally Flavored Cinnamon Vanilla Light Roast Coffee</a
-                  >
-                </h6>
-                <div class="product-rate-cover">
-                  <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
-                  <span class="font-small ml-5 text-muted"> (4.0)</span>
-                </div>
-                <div class="product-price">
-                  <span>$32.85</span>
-                  <span class="old-price">$33.8</span>
-                </div>
-              </div>
-            </article>
+            {% endfor %}
           </div>
         </div>
         <div
@@ -5474,84 +5039,29 @@
             Recently added
           </h4>
           <div class="product-list-small animated animated">
+            {% for ts in new_products %}
             <article class="row align-items-center hover-up">
               <figure class="col-md-4 mb-0">
-                <a href="shop-product-right.html"
+                <a href="{% url 'core:product-detail' ts.pid %}"
                   ><img
-                    src="{% static 'assets/imgs/shop/thumbnail-7.jpg' %}"
+                    src="{{ts.image.url}}"
                     alt=""
                 /></a>
               </figure>
               <div class="col-md-8 mb-0">
                 <h6>
-                  <a href="shop-product-right.html"
-                    >Pepperidge Farm Farmhouse Hearty White Bread</a
+                  <a href="{% url 'core:product-detail' ts.pid %}"
+                    >{{ts.title}}</a
                   >
                 </h6>
-                <div class="product-rate-cover">
-                  <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
-                  <span class="font-small ml-5 text-muted"> (4.0)</span>
-                </div>
+                
                 <div class="product-price">
-                  <span>$32.85</span>
-                  <span class="old-price">$33.8</span>
+                  <span>${{ts.price}}</span>
+                  <span class="old-price">${{ts.old_price}}</span>
                 </div>
               </div>
             </article>
-            <article class="row align-items-center hover-up">
-              <figure class="col-md-4 mb-0">
-                <a href="shop-product-right.html"
-                  ><img
-                    src="{% static 'assets/imgs/shop/thumbnail-8.jpg' %}"
-                    alt=""
-                /></a>
-              </figure>
-              <div class="col-md-8 mb-0">
-                <h6>
-                  <a href="shop-product-right.html"
-                    >Organic Frozen Triple Berry Blend</a
-                  >
-                </h6>
-                <div class="product-rate-cover">
-                  <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
-                  <span class="font-small ml-5 text-muted"> (4.0)</span>
-                </div>
-                <div class="product-price">
-                  <span>$32.85</span>
-                  <span class="old-price">$33.8</span>
-                </div>
-              </div>
-            </article>
-            <article class="row align-items-center hover-up">
-              <figure class="col-md-4 mb-0">
-                <a href="shop-product-right.html"
-                  ><img
-                    src="{% static 'assets/imgs/shop/thumbnail-9.jpg' %}"
-                    alt=""
-                /></a>
-              </figure>
-              <div class="col-md-8 mb-0">
-                <h6>
-                  <a href="shop-product-right.html"
-                    >Oroweat Country Buttermilk Bread</a
-                  >
-                </h6>
-                <div class="product-rate-cover">
-                  <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
-                  <span class="font-small ml-5 text-muted"> (4.0)</span>
-                </div>
-                <div class="product-price">
-                  <span>$32.85</span>
-                  <span class="old-price">$33.8</span>
-                </div>
-              </div>
-            </article>
+            {% endfor %}
           </div>
         </div>
         <div
@@ -5561,84 +5071,29 @@
             Top Rated
           </h4>
           <div class="product-list-small animated animated">
+            {% for ts in top_rated_products %}
             <article class="row align-items-center hover-up">
               <figure class="col-md-4 mb-0">
-                <a href="shop-product-right.html"
+                <a href="{% url 'core:product-detail' ts.pid %}"
                   ><img
-                    src="{% static 'assets/imgs/shop/thumbnail-10.jpg' %}"
+                    src="{{ts.image.url}}"
                     alt=""
                 /></a>
               </figure>
               <div class="col-md-8 mb-0">
                 <h6>
-                  <a href="shop-product-right.html"
-                    >Foster Farms Takeout Crispy Classic Buffalo Wings</a
+                  <a href="{% url 'core:product-detail' ts.pid %}"
+                    >{{ts.title}}</a
                   >
                 </h6>
-                <div class="product-rate-cover">
-                  <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
-                  <span class="font-small ml-5 text-muted"> (4.0)</span>
-                </div>
+                
                 <div class="product-price">
-                  <span>$32.85</span>
-                  <span class="old-price">$33.8</span>
+                  <span>${{ts.price}}</span>
+                  <span class="old-price">${{ts.old_price}}</span>
                 </div>
               </div>
             </article>
-            <article class="row align-items-center hover-up">
-              <figure class="col-md-4 mb-0">
-                <a href="shop-product-right.html"
-                  ><img
-                    src="{% static 'assets/imgs/shop/thumbnail-11.jpg' %}"
-                    alt=""
-                /></a>
-              </figure>
-              <div class="col-md-8 mb-0">
-                <h6>
-                  <a href="shop-product-right.html"
-                    >Angie’s Boomchickapop Sweet & Salty Kettle Corn</a
-                  >
-                </h6>
-                <div class="product-rate-cover">
-                  <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
-                  <span class="font-small ml-5 text-muted"> (4.0)</span>
-                </div>
-                <div class="product-price">
-                  <span>$32.85</span>
-                  <span class="old-price">$33.8</span>
-                </div>
-              </div>
-            </article>
-            <article class="row align-items-center hover-up">
-              <figure class="col-md-4 mb-0">
-                <a href="shop-product-right.html"
-                  ><img
-                    src="{% static 'assets/imgs/shop/thumbnail-12.jpg' %}"
-                    alt=""
-                /></a>
-              </figure>
-              <div class="col-md-8 mb-0">
-                <h6>
-                  <a href="shop-product-right.html"
-                    >All Natural Italian-Style Chicken Meatballs</a
-                  >
-                </h6>
-                <div class="product-rate-cover">
-                  <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width: 90%"></div>
-                  </div>
-                  <span class="font-small ml-5 text-muted"> (4.0)</span>
-                </div>
-                <div class="product-price">
-                  <span>$32.85</span>
-                  <span class="old-price">$33.8</span>
-                </div>
-              </div>
-            </article>
+            {% endfor %}
           </div>
         </div>
       </div>

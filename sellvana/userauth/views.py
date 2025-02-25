@@ -3,8 +3,10 @@ from userauth.forms import UserRegisterForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.conf import settings
-from userauth.models import User
+from userauth.models import Profile, User
 from django.contrib.auth.decorators import login_required
+# import form
+from userauth.forms import ProfileForm
 # User = settings.AUTH_USER_MODEL
 
 # Create your views here.
@@ -60,3 +62,31 @@ def logout_view(request):
     logout(request)
     messages.success(request, "You are logged out!")
     return redirect("userauth:sign-in")
+
+
+
+def profile_update(request):
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        profile = Profile(user=request.user)  # Create a new profile if it doesn't exist
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)  # Bind to existing profile
+        if form.is_valid():
+            profile = form.save(commit=False)  # Don't save immediately
+            profile.user = request.user  # Ensure the user is set
+            profile.save()
+
+            messages.success(request, "Profile Updated Successfully.")
+            return redirect("core:dashboard")  # Redirect to the dashboard or another page
+
+    else:
+        form = ProfileForm(instance=profile)  # Pre-populate form with existing data
+
+    context = {
+        "form": form,
+        "profile": profile,
+    }
+
+    return render(request, "userauth/profile-edit.html", context)
